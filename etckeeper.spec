@@ -7,6 +7,7 @@ Group:		Applications/System
 Source0:	http://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.tar.gz
 # Source0-md5:	405716f64cad0156e060cd411e19215e
 URL:		http://kitenet.net/~joey/code/etckeeper/
+BuildRequires:	bzr
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	sed >= 4.0
