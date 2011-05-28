@@ -1,17 +1,22 @@
+#TODO:
+# - Subpackages for yum and apt plugins
+# - Subpackages for backends (git, bzr, etc)
+# - Write PLD %pre and %post macros that trigger pre-install and post-install runs
+# - %{py_sitescriptdir}/bzrlib/plugins also created by qbzr package?
 Summary:	Store /etc in git, mercurial, bzr or darcs
 Name:		etckeeper
-Version:	0.42
+Version:	0.53
 Release:	0.1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.tar.gz
-# Source0-md5:	405716f64cad0156e060cd411e19215e
+# Source0-md5:	a5bb4613ce954a03e5db9b9cfff3351a
 URL:		http://kitenet.net/~joey/code/etckeeper/
 BuildRequires:	bzr
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	sed >= 4.0
-Requires:	git >= 1.6.1-1
+Requires:	git-core >= 1.6.1-1
 Requires:	python-modules
 Obsoletes:	etckeeper = snapshot
 Obsoletes:	yum-etckeeper
@@ -31,7 +36,7 @@ you understand the basics of working with version control.
 %setup -q -n %{name}
 
 %{__sed} -i -e '
-	s|HIGHLEVEL_PACKAGE_MANAGER=apt|HIGHLEVEL_PACKAGE_MANAGER=yum|;
+	s|HIGHLEVEL_PACKAGE_MANAGER=apt|HIGHLEVEL_PACKAGE_MANAGER=poldek|;
 	s|LOWLEVEL_PACKAGE_MANAGER=dpkg|LOWLEVEL_PACKAGE_MANAGER=rpm|;
 ' %{name}.conf
 
@@ -55,19 +60,20 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc INSTALL TODO README
-%attr(755,root,root) %{_sbindir}/%{name}
-%{_mandir}/man8/%{name}.8*
+%attr(755,root,root) %{_bindir}/%{name}
 
 %dir %{_sysconfdir}/%{name}
-%{_sysconfdir}/%{name}/*.d/*
-# this isn't very clever and its a manaual process update.
-# but it works
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/%{name}.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/%{name}.conf
+%dir %{_sysconfdir}/%{name}/*.d
+%{_sysconfdir}/%{name}/*.d/*
+%{_sysconfdir}/bash_completion.d/%{name}
 
 %attr(755,root,root) /etc/cron.daily/%{name}
-/etc/bash_completion.d/%{name}
-%{_libdir}/yum-plugins/%{name}.py
 
+%dir %{py_sitescriptdir}/bzrlib
+%dir %{py_sitescriptdir}/bzrlib/plugins
+%dir %{py_sitescriptdir}/bzrlib/plugins/%{name}
 %{py_sitescriptdir}/bzrlib/plugins/%{name}/__init__.py[co]
+
+%doc INSTALL TODO README
+%{_mandir}/man8/%{name}.8*
