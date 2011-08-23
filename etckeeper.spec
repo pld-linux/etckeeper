@@ -18,6 +18,7 @@ BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	sed >= 4.0
 Requires:	bash-completion
 Requires:	git-core >= 1.6.1-1
+Requires:	perl
 Requires:	python-modules
 Obsoletes:	etckeeper = snapshot
 Obsoletes:	yum-etckeeper
@@ -66,7 +67,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/%{name}.conf
 %dir %{_sysconfdir}/%{name}/*.d
-%{_sysconfdir}/%{name}/*.d/*
+%attr(755,root,root) %{_sysconfdir}/%{name}/*.d/[0-9]*
+%{_sysconfdir}/%{name}/*.d/README
 %{_sysconfdir}/bash_completion.d/%{name}
 
 %attr(755,root,root) /etc/cron.daily/%{name}
