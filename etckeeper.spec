@@ -5,17 +5,18 @@
 # - %{py_sitescriptdir}/bzrlib/plugins also created by qbzr package?
 Summary:	Store /etc in git, mercurial, bzr or darcs
 Name:		etckeeper
-Version:	0.55
+Version:	0.56
 Release:	0.1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.tar.gz
-# Source0-md5:	db1ea27facf352b5a27024f229b58e12
+# Source0-md5:	15143ecb039db54a45e22f25e5be84ec
 URL:		http://kitenet.net/~joey/code/etckeeper/
 BuildRequires:	bzr
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	sed >= 4.0
+Requires:	bash-completion
 Requires:	git-core >= 1.6.1-1
 Requires:	python-modules
 Obsoletes:	etckeeper = snapshot
