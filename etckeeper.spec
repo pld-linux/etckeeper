@@ -6,7 +6,7 @@
 Summary:	Store /etc in git, mercurial, bzr or darcs
 Name:		etckeeper
 Version:	0.56
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.tar.gz
@@ -16,10 +16,10 @@ BuildRequires:	bzr
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	sed >= 4.0
-Requires:	bash-completion
-Requires:	git-core >= 1.6.1-1
 Requires:	perl
 Requires:	python-modules
+Suggests:	%{name}-bash-completions
+Suggests:	git-core >= 1.6.1-1
 Obsoletes:	etckeeper = snapshot
 Obsoletes:	yum-etckeeper
 BuildArch:	noarch
@@ -33,6 +33,15 @@ metadata that version control systems do not normally support, but
 that is important for /etc, such as the permissions of /etc/shadow.
 It's quite modular and configurable, while also being simple to use if
 you understand the basics of working with version control.
+
+%package bash-completions
+Summary:	Bash completion routies for %{name}
+Group:		Applications/Shells
+Requires:	%{name} = %{version}-%{release}
+Requires:	bash-completion
+
+%description bash-completions
+Bash completion routines for %{name}
 
 %prep
 %setup -q -n %{name}
@@ -69,7 +78,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_sysconfdir}/%{name}/*.d
 %attr(755,root,root) %{_sysconfdir}/%{name}/*.d/[0-9]*
 %{_sysconfdir}/%{name}/*.d/README
-%{_sysconfdir}/bash_completion.d/%{name}
 
 %attr(755,root,root) /etc/cron.daily/%{name}
 
@@ -80,3 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %doc INSTALL TODO README
 %{_mandir}/man8/%{name}.8*
+
+%files bash-completions
+%defattr(644,root,root,755)
+%{_sysconfdir}/bash_completion.d/%{name}
