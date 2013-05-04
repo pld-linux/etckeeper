@@ -1,12 +1,12 @@
-#TODO:
+# TODO:
 # - Subpackages for yum and apt plugins
-# - Subpackages for backends (git, bzr, etc)
+# - Subpackages for backends (git, etc)
 # - Write PLD %pre and %post macros that trigger pre-install and post-install runs
 # - %{py_sitescriptdir}/bzrlib/plugins also created by qbzr package?
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
 Version:	0.64
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.tar.gz
@@ -51,14 +51,15 @@ Requires:	bzr
 This package provides a bzr backend for etckeeper, if you want to use
 etckeeper with bzr backend, install this package.
 
-%package bash-completions
-Summary:	Bash completion routies for %{name}
+%package -n bash-completion-%{name}
+Summary:	Bash completion routines for %{name}
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
 Requires:	bash-completion
+Obsoletes:	etckeeper-bash-completions
 
-%description bash-completions
-Bash completion routines for %{name}
+%description -n bash-completion-%{name}
+Bash completion routines for etckeeper.
 
 %prep
 %setup -q -n %{name}
@@ -114,6 +115,6 @@ fi
 %{py_sitescriptdir}/bzrlib/plugins/%{name}/*.py[co]
 %{py_sitescriptdir}/bzr_etckeeper-*.egg-info
 
-%files bash-completions
+%files -n bash-completion-%{name}
 %defattr(644,root,root,755)
 %{_sysconfdir}/bash_completion.d/%{name}
