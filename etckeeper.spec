@@ -6,7 +6,7 @@
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
 Version:	0.64
-Release:	0.2
+Release:	0.3
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.tar.gz
@@ -75,6 +75,8 @@ Bash completion routines for etckeeper.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_localstatedir}/cache/%{name}}
 %{__make} install \
+	LOWLEVEL_PACKAGE_MANAGER=rpm \
+	HIGHLEVEL_PACKAGE_MANAGER=poldek \
 	INSTALL="install -p" \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -106,6 +108,8 @@ fi
 %attr(755,root,root) /etc/cron.daily/%{name}
 %attr(755,root,root) %{_bindir}/%{name}
 %{_mandir}/man8/%{name}.8*
+
+%dir %attr(750,root,root) %{_localstatedir}/cache/%{name}
 
 %files bzr
 %defattr(644,root,root,755)
