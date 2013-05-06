@@ -6,7 +6,7 @@
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
 Version:	1.0
-Release:	0.4
+Release:	0.5
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.tar.gz
@@ -16,7 +16,7 @@ BuildRequires:	bzr
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	sed >= 4.0
-Requires:	perl
+Requires:	perl-base
 Requires:	python-modules
 Suggests:	%{name}-bash-completions
 Suggests:	%{name}-bzr
