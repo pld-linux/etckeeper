@@ -6,16 +6,18 @@
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
 Version:	1.0
-Release:	0.5
+Release:	0.6
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.tar.gz
 # Source0-md5:	1d7e402b41721f2a9ea0b217b969ba89
+Patch0:		type-mksh.patch
 URL:		http://kitenet.net/~joey/code/etckeeper/
 BuildRequires:	bzr
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	sed >= 4.0
+Requires:	mktemp
 Requires:	perl-base
 Suggests:	%{name}-bash-completions
 Suggests:	%{name}-bzr
@@ -64,6 +66,7 @@ Bash completion routines for etckeeper.
 %setup -qc
 mv %{name} .tmp
 mv .tmp/* .
+%patch0 -p1
 %{__sed} -i -e '
 	s|HIGHLEVEL_PACKAGE_MANAGER=apt|HIGHLEVEL_PACKAGE_MANAGER=poldek|;
 	s|LOWLEVEL_PACKAGE_MANAGER=dpkg|LOWLEVEL_PACKAGE_MANAGER=rpm|;

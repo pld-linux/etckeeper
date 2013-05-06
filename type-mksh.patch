@@ -1,0 +1,28 @@
+--- etckeeper/uninit.d/50vcs-uninit~	2012-06-03 01:17:20.000000000 +0300
++++ etckeeper/uninit.d/50vcs-uninit	2013-05-06 18:06:58.988017804 +0300
+@@ -21,9 +21,9 @@
+ 	exit 0
+ else
+ 	realfile="$file"
+-	if [ -n "`type -p tempfile`" ]; then
++	if type -p tempfile >/dev/null 2>&1; then
+ 		tempfile="tempfile"
+-	elif [ -n "`type -p mktemp`" ]; then
++	elif type -p mktemp >/dev/null 2>&1; then
+ 		tempfile="mktemp"
+ 	else
+ 		echo "etckeeper warning: can't find tempfile or mktemp" >&2
+--- etckeeper/update-ignore.d/01update-ignore~	2012-06-03 01:14:44.000000000 +0300
++++ etckeeper/update-ignore.d/01update-ignore	2013-05-06 18:07:41.736533578 +0300
+@@ -170,9 +170,9 @@
+ 		fi
+ 	fi
+ 	realfile="$file"
+-	if [ -n "`type -p tempfile`" ]; then
++	if type -p tempfile >/dev/null 2>&1; then
+ 		tempfile="tempfile"
+-	elif [ -n "`type -p mktemp`" ]; then
++	elif type -p mktemp >/dev/null 2>&1; then
+ 		tempfile="mktemp"
+ 	else
+ 		echo "etckeeper warning: can't find tempfile or mktemp" >&2
