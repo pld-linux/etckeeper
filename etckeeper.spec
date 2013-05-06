@@ -17,7 +17,6 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	sed >= 4.0
 Requires:	perl-base
-Requires:	python-modules
 Suggests:	%{name}-bash-completions
 Suggests:	%{name}-bzr
 Suggests:	git-core >= 1.6.1-1
