@@ -4,13 +4,14 @@
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
 Version:	1.1
-Release:	0.21
+Release:	0.25
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.tar.gz
 # Source0-md5:	280f75205940f99f8f0295bb8ec3598f
 Source1:	poldek.sh
 Patch0:		type-mksh.patch
+Patch1:		use-libdir.patch
 URL:		http://kitenet.net/~joey/code/etckeeper/
 BuildRequires:	bzr
 BuildRequires:	rpm-pythonprov
@@ -79,6 +80,7 @@ Bash completion routines for etckeeper.
 mv %{name} .tmp
 mv .tmp/* .
 %patch0 -p1
+%patch1 -p1
 %{__sed} -i -e '
 	s|HIGHLEVEL_PACKAGE_MANAGER=apt|HIGHLEVEL_PACKAGE_MANAGER=poldek|;
 	s|LOWLEVEL_PACKAGE_MANAGER=dpkg|LOWLEVEL_PACKAGE_MANAGER=rpm|;
@@ -92,12 +94,16 @@ find '(' -name '*~' -o -name '*.orig' ')' -print0 | xargs -0 -r -l512 rm -f
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_localstatedir}/cache/%{name},%{_poldeklibdir}}
+install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_sysconfdir}/%{name},%{_localstatedir}/cache/%{name},%{_poldeklibdir}}
 %{__make} install \
+	etcdir=/lib \
 	LOWLEVEL_PACKAGE_MANAGER=rpm \
 	HIGHLEVEL_PACKAGE_MANAGER=poldek \
 	INSTALL="install -p" \
 	DESTDIR=$RPM_BUILD_ROOT
+
+mv $RPM_BUILD_ROOT{/lib,%{_sysconfdir}}/%{name}/%{name}.conf
+mv $RPM_BUILD_ROOT{/lib/bash_completion.d,/etc}
 
 install -p debian/cron.daily $RPM_BUILD_ROOT/etc/cron.daily/%{name}
 install -p %{SOURCE1} $RPM_BUILD_ROOT%{_poldeklibdir}/%{name}.sh
@@ -131,15 +137,14 @@ fi
 %doc INSTALL TODO README
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/%{name}.conf
-%dir %{_sysconfdir}/%{name}/*.d
-%attr(755,root,root) %{_sysconfdir}/%{name}/*.d/[0-9]*
-%{_sysconfdir}/%{name}/*.d/README
-
+%dir /lib/%{name}
+%dir /lib/%{name}/*.d
+%attr(755,root,root) /lib/%{name}/*.d/[0-9]*
+/lib/%{name}/*.d/README
 %attr(755,root,root) /etc/cron.daily/%{name}
 %attr(755,root,root) %{_bindir}/%{name}
-%attr(755,root,root) %{_poldeklibdir}/%{name}.sh
 %{_mandir}/man8/%{name}.8*
-
+%attr(755,root,root) %{_poldeklibdir}/%{name}.sh
 %dir %attr(750,root,root) %{_localstatedir}/cache/%{name}
 
 %files bzr

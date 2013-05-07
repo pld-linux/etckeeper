@@ -1,0 +1,43 @@
+--- etckeeper-1.1/etckeeper	2012-12-28 18:09:51.000000000 +0200
++++ etckeeper-1.1/etckeeper	2013-05-07 13:05:25.000000000 +0300
+@@ -1,6 +1,10 @@
+ #!/bin/sh
+ set -e
+ 
++if [ -z "$ETCKEEPER_LIB_DIR" ]; then
++	ETCKEEPER_LIB_DIR=/lib/etckeeper
++fi
++
+ if [ -z "$ETCKEEPER_CONF_DIR" ]; then
+ 	ETCKEEPER_CONF_DIR=/etc/etckeeper
+ fi
+@@ -71,8 +75,8 @@
+ 	command=pre-install
+ fi
+ 
+-if [ ! -d "$ETCKEEPER_CONF_DIR/$command.d" ]; then
+-	echo "etckeeper: $ETCKEEPER_CONF_DIR/$command.d does not exist" >&2
++if [ ! -d "$ETCKEEPER_LIB_DIR/$command.d" ] && [ ! -d "$ETCKEEPER_CONF_DIR/$command.d" ]; then
++	echo "etckeeper: "$ETCKEEPER_LIB_DIR/$command.d" nor $ETCKEEPER_CONF_DIR/$command.d does not exist" >&2
+ 	exit 1
+ fi
+ 
+@@ -109,13 +113,14 @@
+ 
+ lsscripts() {
+ 	perl -e '
+-		$dir=shift;
++		for $dir (@ARGV) {
+ 		print join "\n", grep { ! -d $_ && -x $_ }
+ 			grep /^\Q$dir\/\E[-a-zA-Z0-9]+$/,
+ 			glob "$dir/*";
+-	' "$1"
++		}
++	' "$@"
+ }
+ 
+-for script in $(lsscripts "$ETCKEEPER_CONF_DIR/$command.d"); do
+-	"$script" "$@"
++for script in $(lsscripts "$ETCKEEPER_LIB_DIR/$command.d" "$ETCKEEPER_CONF_DIR/$command.d"); do
++	"$script" "$@"
+ done
