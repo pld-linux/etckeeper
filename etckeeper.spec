@@ -16,6 +16,7 @@ BuildRequires:	bzr
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	sed >= 4.0
+Requires:	findutils
 Requires:	mktemp
 Requires:	perl-base
 Requires:	poldek >= 0.30.0-1.rc7.4
