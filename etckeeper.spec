@@ -1,16 +1,15 @@
 # TODO:
 # - Subpackages for yum and apt plugins
 # - Subpackages for backends (git, etc)
-# - Write PLD %pre and %post macros that trigger pre-install and post-install runs
-# - %{py_sitescriptdir}/bzrlib/plugins also created by qbzr package?
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
 Version:	1.1
-Release:	0.6
-License:	GPL v2
+Release:	0.15
+License:	GPL v2+
 Group:		Applications/System
 Source0:	http://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.tar.gz
 # Source0-md5:	280f75205940f99f8f0295bb8ec3598f
+Source1:	poldek.sh
 Patch0:		type-mksh.patch
 URL:		http://kitenet.net/~joey/code/etckeeper/
 BuildRequires:	bzr
@@ -19,12 +18,16 @@ BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	sed >= 4.0
 Requires:	mktemp
 Requires:	perl-base
+Requires:	poldek >= 0.30.0-1.rc7.4
+Requires:	sed >= 4.0
 Suggests:	%{name}-bash-completions
 Suggests:	%{name}-bzr
 Suggests:	git-core >= 1.6.1-1
 Obsoletes:	yum-etckeeper
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_poldeklibdir	%{_prefix}/lib/poldek
 
 %description
 The etckeeper program is a tool to let /etc be stored in a git,
@@ -77,7 +80,7 @@ mv .tmp/* .
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_localstatedir}/cache/%{name}}
+install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_localstatedir}/cache/%{name},%{_poldeklibdir}}
 %{__make} install \
 	LOWLEVEL_PACKAGE_MANAGER=rpm \
 	HIGHLEVEL_PACKAGE_MANAGER=poldek \
@@ -85,6 +88,7 @@ install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_localstatedir}/cache/%{name}}
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -p debian/cron.daily $RPM_BUILD_ROOT/etc/cron.daily/%{name}
+install -p %{SOURCE1} $RPM_BUILD_ROOT%{_poldeklibdir}/%{name}.sh
 
 %py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
 %py_comp $RPM_BUILD_ROOT%{py_sitescriptdir}
@@ -93,12 +97,22 @@ install -p debian/cron.daily $RPM_BUILD_ROOT/etc/cron.daily/%{name}
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%if 0
 %post
-if [ $1 -gt 1 ] ; then
+if [ $1 -gt 1 ]; then
 	%{_bindir}/%{name} update-ignore
 fi
-%endif
+
+%triggerin -- poldek
+# add our hook as "pm command"
+if [ -f /etc/poldek/poldek.conf ] && ! grep -q '^pm command = %{_poldeklibdir}/%{name}.sh' /etc/poldek/poldek.conf; then
+	%{__sed} -i -re 's,#?(pm command =).*,\1 %{_poldeklibdir}/%{name}.sh,' /etc/poldek/poldek.conf
+fi
+
+%triggerun -- poldek
+# remove our hook as "pm command"
+if [ "$1" -eq 0 ] && [ -f /etc/poldek/poldek.conf ]; then
+	%{__sed} -i -re 's,^pm command = %{_poldeklibdir}/%{name}.sh,#&,' /etc/poldek/poldek.conf
+fi
 
 %files
 %defattr(644,root,root,755)
@@ -111,6 +125,7 @@ fi
 
 %attr(755,root,root) /etc/cron.daily/%{name}
 %attr(755,root,root) %{_bindir}/%{name}
+%attr(755,root,root) %{_poldeklibdir}/%{name}.sh
 %{_mandir}/man8/%{name}.8*
 
 %dir %attr(750,root,root) %{_localstatedir}/cache/%{name}
