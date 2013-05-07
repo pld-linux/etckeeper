@@ -5,12 +5,12 @@
 # - %{py_sitescriptdir}/bzrlib/plugins also created by qbzr package?
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
-Version:	1.0
+Version:	1.1
 Release:	0.6
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.tar.gz
-# Source0-md5:	1d7e402b41721f2a9ea0b217b969ba89
+# Source0-md5:	280f75205940f99f8f0295bb8ec3598f
 Patch0:		type-mksh.patch
 URL:		http://kitenet.net/~joey/code/etckeeper/
 BuildRequires:	bzr
