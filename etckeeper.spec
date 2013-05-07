@@ -4,7 +4,7 @@
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
 Version:	1.1
-Release:	0.16
+Release:	0.21
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.tar.gz
@@ -19,16 +19,24 @@ BuildRequires:	sed >= 4.0
 Requires:	findutils
 Requires:	mktemp
 Requires:	perl-base
-Requires:	poldek >= 0.30.0-1.rc7.4
 Requires:	sed >= 4.0
+%if "%{pld_release}" != "ac"
+Requires:	poldek >= 0.30.0-1.rc7.4
+%endif
 Suggests:	%{name}-bash-completions
 Suggests:	%{name}-bzr
 Suggests:	git-core >= 1.6.1-1
 Obsoletes:	yum-etckeeper
+%if "%{pld_release}" != "ac"
 BuildArch:	noarch
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%if "%{pld_release}" != "ac"
 %define		_poldeklibdir	%{_prefix}/lib/poldek
+%else
+%define		_poldeklibdir	%{_libdir}/poldek
+%endif
 
 %description
 The etckeeper program is a tool to let /etc be stored in a git,
@@ -140,7 +148,9 @@ fi
 %dir %{py_sitescriptdir}/bzrlib/plugins
 %dir %{py_sitescriptdir}/bzrlib/plugins/%{name}
 %{py_sitescriptdir}/bzrlib/plugins/%{name}/*.py[co]
+%if "%{pld_release}" != "ac"
 %{py_sitescriptdir}/bzr_etckeeper-*.egg-info
+%endif
 
 %files -n bash-completion-%{name}
 %defattr(644,root,root,755)
