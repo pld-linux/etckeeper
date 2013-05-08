@@ -4,7 +4,7 @@
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
 Version:	1.1
-Release:	0.27
+Release:	0.28
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.tar.gz
@@ -25,8 +25,8 @@ Requires:	sed >= 4.0
 %if "%{pld_release}" != "ac"
 Requires:	poldek >= 0.30.0-1.rc7.4
 %endif
-Suggests:	%{name}-bash-completions
 Suggests:	%{name}-bzr
+Suggests:	bash-completion-%{name}
 Suggests:	git-core >= 1.6.1-1
 Obsoletes:	yum-etckeeper
 %if "%{pld_release}" != "ac"
