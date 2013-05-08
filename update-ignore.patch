@@ -1,0 +1,17 @@
+--- etckeeper-1.1/update-ignore.d/01update-ignore~	2013-05-07 17:32:18.000000000 +0300
++++ etckeeper-1.1/update-ignore.d/01update-ignore	2013-05-07 17:39:45.992335328 +0300
+@@ -147,6 +147,14 @@
+ 	ignore "cups/subscriptions.conf.O"
+ 	ignore "fake-hwclock.data"
+ 	nl
++
++	comment "PLD Linux addons"
++	# generated
++	ignore "certs/ca-certificates.crt"
++
++	# rc-scripts
++	ignore "rc.d/init.d/*"
++	ignore "rc.d/rc0.d/[SK]*"
+ 	
+ 	comment "editor temp files"
+ 	ignore "*~"

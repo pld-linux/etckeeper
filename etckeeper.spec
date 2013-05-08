@@ -4,7 +4,7 @@
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
 Version:	1.1
-Release:	0.25
+Release:	0.26
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.tar.gz
@@ -12,6 +12,7 @@ Source0:	http://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.t
 Source1:	poldek.sh
 Patch0:		type-mksh.patch
 Patch1:		use-libdir.patch
+Patch2:		update-ignore.patch
 URL:		http://kitenet.net/~joey/code/etckeeper/
 BuildRequires:	bzr
 BuildRequires:	rpm-pythonprov
@@ -81,6 +82,7 @@ mv %{name} .tmp
 mv .tmp/* .
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 %{__sed} -i -e '
 	s|HIGHLEVEL_PACKAGE_MANAGER=apt|HIGHLEVEL_PACKAGE_MANAGER=poldek|;
 	s|LOWLEVEL_PACKAGE_MANAGER=dpkg|LOWLEVEL_PACKAGE_MANAGER=rpm|;
