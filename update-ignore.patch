@@ -31,7 +31,7 @@
 +	ignore "*.zwc"
 +
 +	comment "sshd keys"
-+	ignore "ssh/ssh_host_*_key*
++	ignore "ssh/ssh_*_key*
 +
 +	comment "ssh-blacklists"
 +	ignore "ssh/blacklist.DSA-1024"
