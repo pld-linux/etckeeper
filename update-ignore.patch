@@ -1,6 +1,6 @@
 --- etckeeper-1.1/update-ignore.d/01update-ignore	2013-05-08 13:29:19.854557098 +0300
 +++ etckeeper-1.1/update-ignore.d/01update-ignore	2013-05-08 16:20:23.372768661 +0300
-@@ -147,6 +147,41 @@
+@@ -147,6 +147,48 @@
  	ignore "cups/subscriptions.conf.O"
  	ignore "fake-hwclock.data"
  	nl
@@ -30,6 +30,9 @@
 +	comment "zsh compiled"
 +	ignore "*.zwc"
 +
++	comment "sshd keys"
++	ignore "ssh/ssh_host_*_key*
++
 +	comment "ssh-blacklists"
 +	ignore "ssh/blacklist.DSA-1024"
 +	ignore "ssh/blacklist.DSA-2048"
@@ -39,6 +42,10 @@
 +
 +	comment "CVS version conflicts"
 +	ignore ".#*.*.*"
++
++	comment "vigr backups"
++	ignore "group.vigr*"
++	ignore "passwd.vipw*
  	
  	comment "editor temp files"
  	ignore "*~"
