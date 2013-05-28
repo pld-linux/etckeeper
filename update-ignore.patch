@@ -34,7 +34,7 @@
 +	ignore "*.zwc"
 +
 +	comment "sshd keys"
-+	ignore "ssh/ssh_*_key*
++	ignore "ssh/ssh_*_key*"
 +
 +	comment "ssh-blacklists"
 +	ignore "ssh/blacklist.DSA-1024"
@@ -48,7 +48,7 @@
 +
 +	comment "vigr backups"
 +	ignore "group.vigr*"
-+	ignore "passwd.vipw*
++	ignore "passwd.vipw*"
  	
  	comment "editor temp files"
  	ignore "*~"
