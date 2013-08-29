@@ -1,6 +1,6 @@
---- etckeeper-1.4/update-ignore.d/01update-ignore	2013-07-03 12:43:31.947929166 +0300
-+++ etckeeper-1.7/update-ignore.d/01update-ignore	2013-08-27 15:44:38.522171508 +0300
-@@ -147,11 +147,61 @@
+--- etckeeper-1.7/update-ignore.d/01update-ignore	2013-08-27 15:44:38.522171508 +0300
++++ etckeeper-1.7/update-ignore.d/01update-ignore	2013-08-29 16:47:24.912067138 +0300
+@@ -147,11 +147,64 @@
  	ignore "cups/subscriptions.conf.O"
  	ignore "fake-hwclock.data"
  	nl
@@ -38,6 +38,9 @@
 +
 +	comment "bacula passwords"
 +	ignore "bacula/*-password"
++
++	comment "visudo tmp"
++	ignore "sudoers.tmp"
 +
 +	comment "ssh-blacklists"
 +	ignore "ssh/blacklist.DSA-1024"
