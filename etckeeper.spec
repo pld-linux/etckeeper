@@ -1,6 +1,6 @@
 # TODO:
 # - Subpackages for yum and apt plugins
-# - Subpackages for backends (git, etc)
+# - Subpackages for backends (darcs, git, hg)
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
 Version:	1.9
@@ -145,8 +145,12 @@ fi
 %attr(755,root,root) %{_poldeklibdir}/%{name}.sh
 %dir %attr(750,root,root) %{_localstatedir}/cache/%{name}
 
+# subpackages
+%exclude /lib/etckeeper/commit.d/30bzr-add
+
 %files bzr
 %defattr(644,root,root,755)
+/lib/etckeeper/commit.d/30bzr-add
 %dir %{py_sitescriptdir}/bzrlib
 %dir %{py_sitescriptdir}/bzrlib/plugins
 %dir %{py_sitescriptdir}/bzrlib/plugins/%{name}
