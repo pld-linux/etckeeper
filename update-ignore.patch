@@ -1,5 +1,5 @@
---- etckeeper-1.7/update-ignore.d/01update-ignore	2013-08-29 16:47:24.912067138 +0300
-+++ etckeeper-1.9/update-ignore.d/01update-ignore	2013-11-14 15:18:12.255851564 +0200
+--- etckeeper-1.10/update-ignore.d/01update-ignore	2013-11-03 18:15:25.000000000 +0200
++++ etckeeper-1.10/update-ignore.d/01update-ignore	2013-11-14 15:28:19.322632177 +0200
 @@ -103,11 +103,10 @@
  	
  	comment "old versions of files"
@@ -16,7 +16,7 @@
  	nl
  
  	comment "mount(8) records system state here, no need to store these"
-@@ -147,11 +146,64 @@
+@@ -146,11 +145,67 @@
  	ignore "cups/subscriptions.conf.O"
  	ignore "fake-hwclock.data"
  	nl
@@ -54,6 +54,9 @@
 +
 +	comment "bacula passwords"
 +	ignore "bacula/*-password"
++
++	comment "chef secret"
++	ignore "chef/encrypted_data_bag_secret"
 +
 +	comment "visudo tmp"
 +	ignore "sudoers.tmp"
