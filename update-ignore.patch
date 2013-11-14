@@ -1,6 +1,22 @@
---- etckeeper-1.7/update-ignore.d/01update-ignore	2013-08-27 15:44:38.522171508 +0300
-+++ etckeeper-1.7/update-ignore.d/01update-ignore	2013-08-29 16:47:24.912067138 +0300
-@@ -147,11 +147,64 @@
+--- etckeeper-1.7/update-ignore.d/01update-ignore	2013-08-29 16:47:24.912067138 +0300
++++ etckeeper-1.9/update-ignore.d/01update-ignore	2013-11-14 15:18:12.255851564 +0200
+@@ -103,11 +103,10 @@
+ 	
+ 	comment "old versions of files"
+ 	ignore "*.old"
+-	# Not currently ignored as admins tend to rely on these files.
+-	#ignore "passwd-"
+-	#ignore "group-"
+-	#ignore "shadow-"
+-	#ignore "gshadow-"
++	ignore "passwd-"
++	ignore "group-"
++	ignore "shadow-"
++	ignore "gshadow-"
+ 	nl
+ 
+ 	comment "mount(8) records system state here, no need to store these"
+@@ -147,11 +146,64 @@
  	ignore "cups/subscriptions.conf.O"
  	ignore "fake-hwclock.data"
  	nl
