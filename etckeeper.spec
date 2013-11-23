@@ -14,6 +14,7 @@ Patch1:		use-libdir.patch
 Patch2:		update-ignore.patch
 URL:		http://kitenet.net/~joey/code/etckeeper/
 BuildRequires:	bzr
+BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	sed >= 4.0
