@@ -1,5 +1,5 @@
---- etckeeper-1.10/update-ignore.d/01update-ignore	2013-11-14 15:28:19.322632177 +0200
-+++ etckeeper-1.10/update-ignore.d/01update-ignore	2013-11-14 15:33:56.904100141 +0200
+--- etckeeper-1.10/update-ignore.d/01update-ignore	2013-11-14 15:33:56.904100141 +0200
++++ etckeeper-1.10/update-ignore.d/01update-ignore	2014-02-03 11:58:25.578526063 +0000
 @@ -103,11 +103,10 @@
  	
  	comment "old versions of files"
@@ -16,7 +16,7 @@
  	nl
  
  	comment "mount(8) records system state here, no need to store these"
-@@ -146,11 +145,68 @@
+@@ -146,11 +145,78 @@
  	ignore "cups/subscriptions.conf.O"
  	ignore "fake-hwclock.data"
  	nl
@@ -61,6 +61,16 @@
 +
 +	comment "visudo tmp"
 +	ignore "sudoers.tmp"
++
++	comment "secrets"
++	ignore "crypttab"
++	ignore "shadow"
++
++	comment "certificates"
++	ignore "httpd/ssl/"
++
++	comment "ntp keys"
++	ignore "ntp/keys"
 +
 +	comment "ssh-blacklists"
 +	ignore "ssh/blacklist.DSA-1024"
