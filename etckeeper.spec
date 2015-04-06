@@ -3,16 +3,16 @@
 # - Subpackages for backends (darcs, git, hg)
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
-Version:	1.11
+Version:	1.18
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	https://github.com/joeyh/etckeeper/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	3db4879745e6a8306e23b1b2952d1e69
+# Source0-md5:	cfdf340f7dc2c072a13d0a09ee560cb8
 Source1:	poldek.sh
 Patch1:		use-libdir.patch
 Patch2:		update-ignore.patch
-URL:		http://kitenet.net/~joey/code/etckeeper/
+URL:		http://etckeeper.branchable.com/
 BuildRequires:	bzr
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
@@ -133,7 +133,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc INSTALL TODO README
+%doc INSTALL
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/%{name}.conf
 %dir /lib/%{name}
