@@ -22,8 +22,8 @@ BuildRequires:	sed >= 4.0
 Requires:	findutils
 Requires:	mktemp
 Requires:	perl-base
+Requires:	poldek >= 0.30.1-7.1
 Requires:	sed >= 4.0
-Requires:	poldek >= 0.30.0-1.rc7.4
 Suggests:	%{name}-bzr
 Suggests:	bash-completion-%{name}
 Suggests:	git-core >= 1.6.1-1
@@ -104,7 +104,7 @@ install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_sysconfdir}/%{name},%{_localstated
 	DESTDIR=$RPM_BUILD_ROOT
 
 mv $RPM_BUILD_ROOT{/lib,%{_sysconfdir}}/%{name}/%{name}.conf
-mv $RPM_BUILD_ROOT{/lib/bash_completion.d,/etc}
+mv $RPM_BUILD_ROOT{/lib/bash_completion.d,%{_sysconfdir}}
 
 install -p debian/cron.daily $RPM_BUILD_ROOT/etc/cron.daily/%{name}
 install -p %{SOURCE1} $RPM_BUILD_ROOT%{_poldekconfdir}/pre-install.d/%{name}
@@ -123,10 +123,13 @@ if [ $1 -gt 1 ]; then
 fi
 
 %triggerpostun -- %{name} < 1.18-2
+# don't do anything on --downgrade
+[ $1 -le 1 ] && exit 0
+# poldek itself may be removed
+test -f /etc/poldek/poldek.conf || exit 0
 # remove our hook as "pm command", poldek supports hooks dir now
-if [ -f /etc/poldek/poldek.conf ]; then
-	%{__sed} -i -re 's,^pm command = %{_poldeklibdir}/%{name}.sh,#&,' /etc/poldek/poldek.conf
-fi
+# NOTE: poldek own trigger migrating to hooks dir is invoked after this trigger
+%{__sed} -i -re 's,^pm command = %{_poldeklibdir}/%{name}.sh,#&,' /etc/poldek/poldek.conf
 
 %files
 %defattr(644,root,root,755)
