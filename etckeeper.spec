@@ -3,12 +3,12 @@
 # - Subpackages for backends (darcs, git, hg)
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
-Version:	1.18
-Release:	2
+Version:	1.18.2
+Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	https://github.com/joeyh/etckeeper/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	cfdf340f7dc2c072a13d0a09ee560cb8
+# Source0-md5:	f4217adc1e1a19a03222af76a0a5bffc
 Source1:	pre-install.sh
 Source2:	post-install.sh
 Patch1:		use-libdir.patch
@@ -133,7 +133,7 @@ test -f /etc/poldek/poldek.conf || exit 0
 
 %files
 %defattr(644,root,root,755)
-%doc INSTALL
+%doc doc/README.mdwn doc/install.mdwn
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/%{name}.conf
 %dir /lib/%{name}
