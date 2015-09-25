@@ -16,7 +16,7 @@
  	nl
  
  	comment "mount(8) records system state here, no need to store these"
-@@ -146,11 +145,78 @@
+@@ -146,11 +145,79 @@
  	ignore "cups/subscriptions.conf.O"
  	ignore "fake-hwclock.data"
  	nl
@@ -65,6 +65,7 @@
 +	comment "secrets"
 +	ignore "crypttab"
 +	ignore "shadow"
++	ignore "passwd"
 +
 +	comment "certificates"
 +	ignore "httpd/ssl/"
