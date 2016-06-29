@@ -104,7 +104,6 @@ install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_sysconfdir}/%{name},%{_localstated
 	DESTDIR=$RPM_BUILD_ROOT
 
 mv $RPM_BUILD_ROOT{/lib,%{_sysconfdir}}/%{name}/%{name}.conf
-mv $RPM_BUILD_ROOT{/lib/bash_completion.d,%{_sysconfdir}}
 
 install -p debian/cron.daily $RPM_BUILD_ROOT/etc/cron.daily/%{name}
 install -p %{SOURCE1} $RPM_BUILD_ROOT%{_poldekconfdir}/pre-install.d/%{name}
@@ -163,4 +162,4 @@ test -f /etc/poldek/poldek.conf || exit 0
 
 %files -n bash-completion-%{name}
 %defattr(644,root,root,755)
-%{_sysconfdir}/bash_completion.d/%{name}
+%{bash_compdir}/etckeeper
