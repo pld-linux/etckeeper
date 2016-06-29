@@ -141,6 +141,7 @@ test -f /etc/poldek/poldek.conf || exit 0
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/%{name}.conf
 %dir /lib/%{name}
 %dir /lib/%{name}/*.d
+%attr(755,root,root) /lib/%{name}/daily
 %attr(755,root,root) /lib/%{name}/*.d/[0-9]*
 /lib/%{name}/*.d/README
 %attr(755,root,root) /etc/cron.daily/%{name}

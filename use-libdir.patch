@@ -40,3 +40,22 @@
 +for script in $(lsscripts "$ETCKEEPER_LIB_DIR/$command.d" "$ETCKEEPER_CONF_DIR/$command.d"); do
  	"$script" "$@"
  done
+--- etckeeper-1.18.4/debian/cron.daily~	2016-06-20 08:06:01.000000000 +0300
++++ etckeeper-1.18.4/debian/cron.daily	2016-06-29 23:41:40.939927867 +0300
+@@ -3,6 +3,6 @@
+ if [ -e /etc/etckeeper/daily ] && [ -e /etc/etckeeper/etckeeper.conf ]; then
+ 	. /etc/etckeeper/etckeeper.conf
+ 	if [ "$AVOID_DAILY_AUTOCOMMITS" != "1" ]; then
+-		/etc/etckeeper/daily
++		/lib/etckeeper/daily
+ 	fi
+ fi
+--- etckeeper-1.18.4/systemd/etckeeper.service~	2016-06-20 08:06:01.000000000 +0300
++++ etckeeper-1.18.4/systemd/etckeeper.service	2016-06-29 23:42:00.804296507 +0300
+@@ -8,5 +8,5 @@
+ 
+ [Service]
+ Type=oneshot
+-ExecStart=/etc/etckeeper/daily
++ExecStart=/lib/etckeeper/daily
+ IOSchedulingClass=idle
