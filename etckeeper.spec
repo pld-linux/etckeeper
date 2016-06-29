@@ -17,7 +17,7 @@ URL:		http://etckeeper.branchable.com/
 BuildRequires:	bzr
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.219
+BuildRequires:	rpmbuild(macros) >= 1.717
 BuildRequires:	sed >= 4.0
 Requires:	findutils
 Requires:	mktemp
@@ -100,6 +100,7 @@ install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_sysconfdir}/%{name},%{_localstated
 	etcdir=/lib \
 	LOWLEVEL_PACKAGE_MANAGER=rpm \
 	HIGHLEVEL_PACKAGE_MANAGER=poldek \
+	PYTHON_INSTALL_OPTS="%py_install_opts" \
 	INSTALL="install -p" \
 	DESTDIR=$RPM_BUILD_ROOT
 
