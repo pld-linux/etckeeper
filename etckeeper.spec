@@ -19,6 +19,7 @@ BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.717
 BuildRequires:	sed >= 4.0
+Requires:	diffutils
 Requires:	findutils
 Requires:	mktemp
 Requires:	perl-base
