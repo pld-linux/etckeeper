@@ -85,6 +85,8 @@ Bash completion routines for etckeeper.
 	s|LOWLEVEL_PACKAGE_MANAGER=dpkg|LOWLEVEL_PACKAGE_MANAGER=rpm|;
 ' %{name}.conf
 
+%{__sed} -i -e 's#$(prefix)/lib/systemd#/lib/systemd#' Makefile
+
 # cleanup backups after patching
 find '(' -name '*~' -o -name '*.orig' ')' -print0 | xargs -0 -r -l512 rm -f
 
@@ -146,6 +148,9 @@ test -f /etc/poldek/poldek.conf || exit 0
 %attr(755,root,root) %{_poldekconfdir}/pre-install.d/%{name}
 %attr(755,root,root) %{_poldekconfdir}/post-install.d/%{name}
 %dir %attr(750,root,root) %{_localstatedir}/cache/%{name}
+
+%{systemdunitdir}/etckeeper.service
+%{systemdunitdir}/etckeeper.timer
 
 # subpackages
 %exclude /lib/etckeeper/commit.d/30bzr-add
