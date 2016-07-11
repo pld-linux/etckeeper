@@ -16,7 +16,7 @@
  	nl
  
  	comment "mount(8) records system state here, no need to store these"
-@@ -146,11 +145,79 @@
+@@ -146,11 +145,80 @@
  	ignore "cups/subscriptions.conf.O"
  	ignore "fake-hwclock.data"
  	nl
@@ -25,6 +25,7 @@
 +	comment "ca-certificates: generated content"
 +	ignore "certs/ca-certificates.crt"
 +	ignore "openssl/certs/*"
++	ignore "udev/hwdb*"
 +
 +	comment "bash-completion"
 +	ignore "bash_completion.d/*"
