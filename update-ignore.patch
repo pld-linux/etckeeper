@@ -7,7 +7,7 @@
 +
 +	comment "PLD Linux addons"
 +	comment "ca-certificates: generated content"
-+	ignore "certs/ca-certificates.crt"
++	#ignore "certs/ca-certificates.crt"
 +	#ignore "openssl/certs/*"
 +	ignore "udev/hwdb*"
 +
