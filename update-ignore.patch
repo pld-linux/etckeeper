@@ -1,21 +1,5 @@
 --- etckeeper-1.10/update-ignore.d/01update-ignore	2013-11-14 15:33:56.904100141 +0200
 +++ etckeeper-1.10/update-ignore.d/01update-ignore	2014-02-03 11:58:25.578526063 +0000
-@@ -103,11 +103,10 @@
- 	
- 	comment "old versions of files"
- 	ignore "*.old"
--	# Not currently ignored as admins tend to rely on these files.
--	#ignore "passwd-"
--	#ignore "group-"
--	#ignore "shadow-"
--	#ignore "gshadow-"
-+	ignore "passwd-"
-+	ignore "group-"
-+	ignore "shadow-"
-+	ignore "gshadow-"
- 	nl
- 
- 	comment "mount(8) records system state here, no need to store these"
 @@ -146,11 +145,80 @@
  	ignore "cups/subscriptions.conf.O"
  	ignore "fake-hwclock.data"
@@ -24,15 +8,15 @@
 +	comment "PLD Linux addons"
 +	comment "ca-certificates: generated content"
 +	ignore "certs/ca-certificates.crt"
-+	ignore "openssl/certs/*"
++	#ignore "openssl/certs/*"
 +	ignore "udev/hwdb*"
 +
 +	comment "bash-completion"
 +	ignore "bash_completion.d/*"
 +	ignore "bash_completion"
 +
-+	comment "openldap"
-+	ignore "ldap.secret"
++	#comment "openldap"
++	#ignore "ldap.secret"
 +
 +	comment "postfix"
 +	ignore "mail/*.db"
@@ -51,28 +35,28 @@
 +	comment "zsh compiled"
 +	ignore "*.zwc"
 +
-+	comment "sshd keys"
-+	ignore "ssh/ssh_*_key*"
++	#comment "sshd keys"
++	#ignore "ssh/ssh_*_key*"
 +
-+	comment "bacula passwords"
-+	ignore "bacula/*-password"
++	#comment "bacula passwords"
++	#ignore "bacula/*-password"
 +
-+	comment "chef secret"
-+	ignore "chef/encrypted_data_bag_secret"
++	#comment "chef secret"
++	#ignore "chef/encrypted_data_bag_secret"
 +
 +	comment "visudo tmp"
 +	ignore "sudoers.tmp"
 +
-+	comment "secrets"
-+	ignore "crypttab"
-+	ignore "shadow"
-+	ignore "passwd"
++	#comment "secrets"
++	#ignore "crypttab"
++	#ignore "shadow"
++	#ignore "passwd"
 +
-+	comment "certificates"
-+	ignore "httpd/ssl/"
++	#comment "certificates"
++	#ignore "httpd/ssl/"
 +
-+	comment "ntp keys"
-+	ignore "ntp/keys"
++	#comment "ntp keys"
++	#ignore "ntp/keys"
 +
 +	comment "ssh-blacklists"
 +	ignore "ssh/blacklist.DSA-1024"
