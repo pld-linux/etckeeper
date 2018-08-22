@@ -3,12 +3,12 @@
 # - Subpackages for backends (darcs, git, hg)
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
-Version:	1.18.5
+Version:	1.18.8
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
-Source0:	https://github.com/joeyh/etckeeper/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	c06a5f69cc6d53da6e280e7d9ddafb11
+Source0:	https://git.joeyh.name/index.cgi/etckeeper.git/snapshot/%{name}-%{version}.tar.gz
+# Source0-md5:	d3ce4568868324af81ed8c46f9a5d3eb
 Source1:	pre-install.sh
 Source2:	post-install.sh
 Patch1:		use-libdir.patch

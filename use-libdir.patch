@@ -1,5 +1,5 @@
---- etckeeper/etckeeper.orig	2015-03-14 18:24:26.000000000 +0100
-+++ etckeeper/etckeeper	2015-04-07 00:54:26.014557154 +0200
+--- etckeeper-1.18.8/etckeeper~	2018-08-22 15:47:48.000000000 +0300
++++ etckeeper-1.18.8/etckeeper	2018-08-22 15:49:36.932110437 +0300
 @@ -1,6 +1,10 @@
  #!/bin/sh
  set -e
@@ -22,24 +22,31 @@
  	exit 1
  fi
  
-@@ -122,13 +126,14 @@
+@@ -132,19 +132,20 @@
+ if [ "$(which perl 2>/dev/null)" != "" ]; then
+ 	lsscripts() {
+ 		LANG=C perl -e '
+-			$dir=shift;
++			for $dir (@ARGV) {
+ 			print join "\n", grep { ! -d $_ && -x $_ }
+ 				grep /^\Q$dir\/\E[-a-zA-Z0-9]+$/,
+ 				glob "$dir/*";
+-		' "$1"
++			}
++		' "$@"
+ 	}
  
- lsscripts() {
- 	LANG=C perl -e '
--		$dir=shift;
-+		for $dir (@ARGV) {
- 		print join "\n", grep { ! -d $_ && -x $_ }
- 			grep /^\Q$dir\/\E[-a-zA-Z0-9]+$/,
- 			glob "$dir/*";
--	' "$1"
-+		}
-+	' "$@"
- }
- 
--for script in $(lsscripts "$ETCKEEPER_CONF_DIR/$command.d"); do
-+for script in $(lsscripts "$ETCKEEPER_LIB_DIR/$command.d" "$ETCKEEPER_CONF_DIR/$command.d"); do
- 	"$script" "$@"
- done
+-	for script in $(lsscripts "$ETCKEEPER_CONF_DIR/$command.d"); do
++	for script in $(lsscripts "$ETCKEEPER_LIB_DIR/$command.d" "$ETCKEEPER_CONF_DIR/$command.d"); do
+ 		"$script" "$@"
+ 	done
+ else
+ 	# fallback if perl isn't present
+-	for script in $ETCKEEPER_CONF_DIR/$command.d/*; do
++	for script in "$ETCKEEPER_LIB_DIR/$command.d/"* "$ETCKEEPER_CONF_DIR/$command.d/"*; do
+ 		if [ ! -d "$script" -a -x "$script" ]; then
+ 			echo "$script" | egrep -q "/[-a-zA-Z0-9]+$"
+ 			[ $? -eq 0 ] && "$script" "$@"
 --- etckeeper-1.18.4/debian/cron.daily~	2016-06-20 08:06:01.000000000 +0300
 +++ etckeeper-1.18.4/debian/cron.daily	2016-06-29 23:41:40.939927867 +0300
 @@ -3,6 +3,6 @@
