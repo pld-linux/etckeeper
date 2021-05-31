@@ -1,8 +1,8 @@
 --- etckeeper-1.10/update-ignore.d/01update-ignore	2013-11-14 15:33:56.904100141 +0200
 +++ etckeeper-1.10/update-ignore.d/01update-ignore	2014-02-03 11:58:25.578526063 +0000
 @@ -146,11 +145,80 @@
- 	ignore "cups/subscriptions.conf.O"
  	ignore "fake-hwclock.data"
+	ignore "check_mk/logwatch.state"
  	nl
 +
 +	comment "PLD Linux addons"

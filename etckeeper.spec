@@ -3,14 +3,16 @@
 # - Subpackages for backends (darcs, git, hg)
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
-Version:	1.18.14
+Version:	1.18.16
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	https://git.joeyh.name/index.cgi/etckeeper.git/snapshot/%{name}-%{version}.tar.gz
-# Source0-md5:	16da85e787dccef11fcf32baddf47d79
+# Source0-md5:	3d1636d5b792a8e07d138060fd95cb02
 Source1:	pre-install.sh
 Source2:	post-install.sh
+Source3:	https://ftp.debian.org/debian/pool/main/e/etckeeper/etckeeper_1.18.16-1.debian.tar.xz
+# Source3-md5:	49849b13951d76dcb3c4015090a26511
 Patch1:		use-libdir.patch
 Patch2:		update-ignore.patch
 URL:		http://etckeeper.branchable.com/
@@ -78,9 +80,12 @@ Obsoletes:	etckeeper-bash-completions
 Bash completion routines for etckeeper.
 
 %prep
-%setup -q
+%setup -q -a3
 %patch1 -p1
 %patch2 -p1
+
+patch -p1 < debian/patches/0002-Default-to-UTF8-encoding-for-consistent-ordering.patch || exit 1
+
 %{__sed} -i -e '
 	s|HIGHLEVEL_PACKAGE_MANAGER=apt|HIGHLEVEL_PACKAGE_MANAGER=poldek|;
 	s|LOWLEVEL_PACKAGE_MANAGER=dpkg|LOWLEVEL_PACKAGE_MANAGER=rpm|;

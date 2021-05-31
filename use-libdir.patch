@@ -12,7 +12,7 @@
  	ETCKEEPER_CONF_DIR=/etc/etckeeper
  fi
 @@ -84,8 +88,8 @@
- 	command=pre-install
+ 	exit 1
  fi
  
 -if [ ! -d "$ETCKEEPER_CONF_DIR/$command.d" ]; then
@@ -22,8 +22,8 @@
  	exit 1
  fi
  
-@@ -132,19 +132,20 @@
- if [ "$(which perl 2>/dev/null)" != "" ]; then
+@@ -128,19 +132,20 @@
+ if command -v perl >/dev/null; then
  	lsscripts() {
  		LANG=C perl -e '
 -			$dir=shift;
@@ -47,16 +47,6 @@
  		if [ ! -d "$script" -a -x "$script" ]; then
  			echo "$script" | egrep -q "/[-a-zA-Z0-9]+$"
  			[ $? -eq 0 ] && "$script" "$@"
---- etckeeper-1.18.4/debian/cron.daily~	2016-06-20 08:06:01.000000000 +0300
-+++ etckeeper-1.18.4/debian/cron.daily	2016-06-29 23:41:40.939927867 +0300
-@@ -3,6 +3,6 @@
- if [ -e /etc/etckeeper/daily ] && [ -e /etc/etckeeper/etckeeper.conf ]; then
- 	. /etc/etckeeper/etckeeper.conf
- 	if [ "$AVOID_DAILY_AUTOCOMMITS" != "1" ]; then
--		/etc/etckeeper/daily
-+		/lib/etckeeper/daily
- 	fi
- fi
 --- etckeeper-1.18.4/systemd/etckeeper.service~	2016-06-20 08:06:01.000000000 +0300
 +++ etckeeper-1.18.4/systemd/etckeeper.service	2016-06-29 23:42:00.804296507 +0300
 @@ -8,5 +8,5 @@
@@ -66,3 +56,17 @@
 -ExecStart=/etc/etckeeper/daily
 +ExecStart=/lib/etckeeper/daily
  IOSchedulingClass=idle
+--- etckeeper-1.18.16/debian/cron.daily~	2021-05-31 13:29:39.000000000 +0200
++++ etckeeper-1.18.16/debian/cron.daily	2021-05-31 13:31:15.151417059 +0200
+@@ -1,8 +1,8 @@
+ #!/bin/sh
+ set -e
+-if [ -e /etc/etckeeper/daily ] && [ -e /etc/etckeeper/etckeeper.conf ]; then
++if [ -e /lib/etckeeper/daily ] && [ -e /etc/etckeeper/etckeeper.conf ]; then
+ 	. /etc/etckeeper/etckeeper.conf
+ 	if [ "$AVOID_DAILY_AUTOCOMMITS" != "1" ]; then
+-		/etc/etckeeper/daily
++		/lib/etckeeper/daily
+ 	fi
+ fi
+
