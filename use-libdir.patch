@@ -45,7 +45,7 @@
 -	for script in $ETCKEEPER_CONF_DIR/$command.d/*; do
 +	for script in "$ETCKEEPER_LIB_DIR/$command.d/"* "$ETCKEEPER_CONF_DIR/$command.d/"*; do
  		if [ ! -d "$script" -a -x "$script" ]; then
- 			echo "$script" | egrep -q "/[-a-zA-Z0-9]+$"
+ 			echo "$script" | grep -E -q "/[-a-zA-Z0-9]+$"
  			[ $? -eq 0 ] && "$script" "$@"
 --- etckeeper-1.18.4/systemd/etckeeper.service~	2016-06-20 08:06:01.000000000 +0300
 +++ etckeeper-1.18.4/systemd/etckeeper.service	2016-06-29 23:42:00.804296507 +0300
