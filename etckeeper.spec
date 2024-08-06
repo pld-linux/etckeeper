@@ -3,16 +3,16 @@
 # - Subpackages for backends (darcs, git, hg)
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
-Version:	1.18.20
+Version:	1.18.21
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	https://git.joeyh.name/index.cgi/etckeeper.git/snapshot/%{name}-%{version}.tar.gz
-# Source0-md5:	fde6b3dc09b4ce75fa4faf4dabbb2d4a
+# Source0-md5:	223a6ad4bc0ddb305b5fce03fb659308
 Source1:	pre-install.sh
 Source2:	post-install.sh
 Source3:	https://ftp.debian.org/debian/pool/main/e/etckeeper/etckeeper_%{version}-1.debian.tar.xz
-# Source3-md5:	07bcade67ac5ab7bf1ea7d97a42f2d18
+# Source3-md5:	7b76e3a529e8e41d70794aa96cb931ff
 Patch1:		use-libdir.patch
 Patch2:		update-ignore.patch
 URL:		http://etckeeper.branchable.com/
@@ -106,6 +106,7 @@ install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_sysconfdir}/%{name},%{_localstated
 	etcdir=/lib \
 	LOWLEVEL_PACKAGE_MANAGER=rpm \
 	HIGHLEVEL_PACKAGE_MANAGER=poldek \
+	PYTHON=%{__python} \
 	PYTHON_INSTALL_OPTS="%py_install_opts" \
 	INSTALL="install -p" \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -126,6 +127,22 @@ rm -rf $RPM_BUILD_ROOT
 %post
 if [ $1 -gt 1 ]; then
 	%{_bindir}/%{name} update-ignore
+fi
+
+if [ $1 -eq 1 ] && [ -e "/etc/etckeeper/etckeeper.conf" ]; then
+	# Fresh install.
+	. /etc/etckeeper/etckeeper.conf || true
+	if [ -n "$VCS" ] && [ -x "`which $VCS 2>/dev/null`" ]; then
+		if %{_bindir}/etckeeper init; then
+			if ! %{_bindir}/etckeeper commit "Initial commit"; then
+			echo "etckeeper commit failed; run it by hand" >&2
+			fi
+		else
+			echo "etckeeper init failed; run it by hand" >&2
+		fi
+	else
+		echo "etckeeper init not ran as $VCS is not installed" >&2
+	fi
 fi
 
 %triggerpostun -- %{name} < 1.18-2
