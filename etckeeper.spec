@@ -81,8 +81,8 @@ Bash completion routines for etckeeper.
 
 %prep
 %setup -q -a3
-%patch1 -p1
-%patch2 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 patch -p1 < debian/patches/0002-Default-to-UTF8-encoding-for-consistent-ordering.patch || exit 1
 
