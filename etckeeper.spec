@@ -3,16 +3,17 @@
 # - Subpackages for backends (darcs, git, hg)
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
-Version:	1.18.21
+Version:	1.18.22
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
-Source0:	https://git.joeyh.name/index.cgi/etckeeper.git/snapshot/%{name}-%{version}.tar.gz
-# Source0-md5:	223a6ad4bc0ddb305b5fce03fb659308
+#Source0:	https://git.joeyh.name/index.cgi/etckeeper.git/snapshot/%{name}-%{version}.tar.gz
+Source0:	https://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.orig.tar.gz
+# Source0-md5:	94ea406f9040fac80009ffa6b6da02e0
 Source1:	pre-install.sh
 Source2:	post-install.sh
-Source3:	https://ftp.debian.org/debian/pool/main/e/etckeeper/etckeeper_%{version}-1.debian.tar.xz
-# Source3-md5:	7b76e3a529e8e41d70794aa96cb931ff
+Source3:	https://ftp.debian.org/debian/pool/main/e/etckeeper/etckeeper_%{version}-2.debian.tar.xz
+# Source3-md5:	349451456d729070bb93a94c914eb9ab
 Patch1:		use-libdir.patch
 Patch2:		update-ignore.patch
 URL:		http://etckeeper.branchable.com/
