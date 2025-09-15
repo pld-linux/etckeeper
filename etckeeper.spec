@@ -3,17 +3,17 @@
 # - Subpackages for backends (darcs, git, hg)
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
-Version:	1.18.22
+Version:	1.18.23
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
 #Source0:	https://git.joeyh.name/index.cgi/etckeeper.git/snapshot/%{name}-%{version}.tar.gz
 Source0:	https://ftp.debian.org/debian/pool/main/e/etckeeper/%{name}_%{version}.orig.tar.gz
-# Source0-md5:	94ea406f9040fac80009ffa6b6da02e0
+# Source0-md5:	075fcafc6bd7ac0d42e20743f31517d9
 Source1:	pre-install.sh
 Source2:	post-install.sh
 Source3:	https://ftp.debian.org/debian/pool/main/e/etckeeper/etckeeper_%{version}-2.debian.tar.xz
-# Source3-md5:	349451456d729070bb93a94c914eb9ab
+# Source3-md5:	fa217e124e12f4a5752ad03f36618ae2
 Patch1:		use-libdir.patch
 Patch2:		update-ignore.patch
 URL:		http://etckeeper.branchable.com/
@@ -114,7 +114,7 @@ install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_sysconfdir}/%{name},%{_localstated
 
 mv $RPM_BUILD_ROOT{/lib,%{_sysconfdir}}/%{name}/%{name}.conf
 
-install -p debian/cron.daily $RPM_BUILD_ROOT/etc/cron.daily/%{name}
+install -p cron.daily $RPM_BUILD_ROOT/etc/cron.daily/%{name}
 install -p %{SOURCE1} $RPM_BUILD_ROOT%{_poldekconfdir}/pre-install.d/%{name}
 install -p %{SOURCE2} $RPM_BUILD_ROOT%{_poldekconfdir}/post-install.d/%{name}
 

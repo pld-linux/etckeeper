@@ -56,17 +56,18 @@
 -ExecStart=/etc/etckeeper/daily
 +ExecStart=/lib/etckeeper/daily
  IOSchedulingClass=idle
---- etckeeper-1.18.16/debian/cron.daily~	2021-05-31 13:29:39.000000000 +0200
-+++ etckeeper-1.18.16/debian/cron.daily	2021-05-31 13:31:15.151417059 +0200
-@@ -1,8 +1,8 @@
+--- etckeeper-1.18.23/cron.daily~	2025-08-16 18:22:02.000000000 +0200
++++ etckeeper-1.18.23/cron.daily	2025-09-15 12:01:40.010683132 +0200
+@@ -1,10 +1,10 @@
  #!/bin/sh
  set -e
 -if [ -e /etc/etckeeper/daily ] && [ -e /etc/etckeeper/etckeeper.conf ]; then
 +if [ -e /lib/etckeeper/daily ] && [ -e /etc/etckeeper/etckeeper.conf ]; then
  	. /etc/etckeeper/etckeeper.conf
  	if [ "$AVOID_DAILY_AUTOCOMMITS" != "1" ]; then
--		/etc/etckeeper/daily
-+		/lib/etckeeper/daily
+ 		if ! systemctl --quiet is-enabled etckeeper.timer >/dev/null 2>&1; then
+-			/etc/etckeeper/daily
++			/lib/etckeeper/daily
+ 		fi
  	fi
  fi
-
