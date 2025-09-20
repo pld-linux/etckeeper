@@ -1,10 +1,14 @@
 # TODO:
 # - Subpackages for yum and apt plugins
 # - Subpackages for backends (darcs, git, hg)
+#
+# Conditional build:
+%bcond_with	bzr		# build bzr subpackage
+#
 Summary:	Store /etc in a SCM system (git, mercurial, bzr or darcs)
 Name:		etckeeper
 Version:	1.18.23
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/System
 #Source0:	https://git.joeyh.name/index.cgi/etckeeper.git/snapshot/%{name}-%{version}.tar.gz
@@ -17,7 +21,7 @@ Source3:	https://ftp.debian.org/debian/pool/main/e/etckeeper/etckeeper_%{version
 Patch1:		use-libdir.patch
 Patch2:		update-ignore.patch
 URL:		http://etckeeper.branchable.com/
-BuildRequires:	bzr
+%{?with_bzr:BuildRequires:	bzr}
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.717
@@ -32,17 +36,11 @@ Suggests:	%{name}-bzr
 Suggests:	bash-completion-%{name}
 Suggests:	git-core >= 1.6.1-1
 Obsoletes:	yum-etckeeper
-%if "%{pld_release}" != "ac"
 BuildArch:	noarch
-%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_poldekconfdir	/etc/poldek
-%if "%{pld_release}" != "ac"
 %define		_poldeklibdir	%{_prefix}/lib/poldek
-%else
-%define		_poldeklibdir	%{_libdir}/poldek
-%endif
 
 %description
 The etckeeper program is a tool to let /etc be stored in a git,
@@ -178,6 +176,7 @@ test -f /etc/poldek/poldek.conf || exit 0
 # subpackages
 %exclude /lib/etckeeper/commit.d/30bzr-add
 
+%if %{with bzr}
 %files bzr
 %defattr(644,root,root,755)
 /lib/etckeeper/commit.d/30bzr-add
@@ -185,7 +184,6 @@ test -f /etc/poldek/poldek.conf || exit 0
 %dir %{py_sitescriptdir}/bzrlib/plugins
 %dir %{py_sitescriptdir}/bzrlib/plugins/%{name}
 %{py_sitescriptdir}/bzrlib/plugins/%{name}/*.py[co]
-%if "%{pld_release}" != "ac"
 %{py_sitescriptdir}/bzr_etckeeper-*.egg-info
 %endif
 
